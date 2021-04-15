@@ -46,3 +46,5 @@ the gid here is variable, if the server have that dl in its storage then it will
 
 **Ping**: 
 Just for testing if the server is up or not.
+
+**NOTE**: Only supports GNU/Linux at the moment.
