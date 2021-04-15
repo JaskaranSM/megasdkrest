@@ -1,5 +1,5 @@
 # MEGASDK-REST 
-MegaSDK downloading functionality as a rest server.
+MegaSDK downloading functionality as a rest server. this project is my [megasdkgo](https://github.com/jaskaranSM/megasdkgo) project wrapped in a rest server.
 
 # Documentation
 Documentation is divided into two categories.
