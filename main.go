@@ -60,7 +60,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "MegaSDK-REST"
 	app.Usage = "A web server encapsulating the downloading functionality of megasdk written in Go."
-	app.Authors = []cli.Author{
+	app.Authors = []*cli.Author{
 		{Name: "JaskaranSM"},
 	}
 	app.Action = callback
