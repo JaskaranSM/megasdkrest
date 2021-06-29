@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/jaskaranSM/megasdkgo"
+	"megasdkgo"
 )
 
 var megaClient *megasdkgo.MegaClient
