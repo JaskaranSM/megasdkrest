@@ -4,9 +4,17 @@ ARG CPU_ARCH="amd64"
 ENV HOST_CPU_ARCH=$CPU_ARCH
 
 #Deps
-RUN apk add --no-cache --update unzip tar xz wget alpine-sdk git autoconf automake libtool linux-headers musl-dev \
+RUN apk add --no-cache --update unzip tar xz wget alpine-sdk git libtool autoconf automake linux-headers musl-dev m4 \
     build-base perl ca-certificates
 
+RUN wget -q https://github.com/upx/upx/releases/download/v3.96/upx-3.96-${HOST_CPU_ARCH}_linux.tar.xz && \
+    tar xf upx*.tar.xz && cd upx*/ && chmod a+x upx && mv upx /usr/local/bin/
+
+# #Libtool
+# RUN wget -q https://ftpmirror.gnu.org/libtool/libtool-2.4.6.tar.gz --no-check-certificate && \
+#     tar -xzf libtool*.tar.gz && rm -rf libtool*.tar.gz && cd libtool*/ && \
+#     ./configure --enable-static --enable-shared --enable-ltdl-install && make -j$(getconf _NPROCESSORS_ONLN) && make install
+    
 #ZLib
 RUN wget -q https://zlib.net/zlib-1.2.11.tar.gz --no-check-certificate && \
     tar -xzf zlib*.tar.gz && rm -rf zlib*.tar.gz && cd zlib*/ && \
@@ -64,7 +72,8 @@ RUN mkdir -p /usr/local/go/src/ && cd /usr/local/go/src/ && \
 
 RUN git clone https://github.com/jaskaranSM/megasdkrest && cd megasdkrest && \
     go get github.com/urfave/cli/v2 && \
-    go build -ldflags "-linkmode external -extldflags '-static' -s -w" . && \
+    go build -ldflags "-linkmode external -extldflags '-static' -s" . && \
+    upx -9 -k megasdkrpc && \
     mkdir -p /go/build/ && mv megasdkrpc ../build/megasdkrest-${HOST_CPU_ARCH}
 
 FROM scratch AS megasdkrest
